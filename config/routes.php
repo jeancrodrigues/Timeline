@@ -41,6 +41,8 @@
 $route['default_controller'] = 'user';
 $route['404_override'] = '';
 
+$route['user/(:num)'] = 'user/user_by_id';
+$route['users'] = 'user/list_users';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
