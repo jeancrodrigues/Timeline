@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = 'user';
+$route['default_controller'] = 'crud';
 $route['404_override'] = '';
 
 $route['user/(:num)'] = 'user/user_by_id';
