@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/projeto/CI';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['base_url']	= 'http://localhost/projeto/CI';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -356,6 +356,14 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
+
+function __autoload($class){
+    if (strpos($class, 'CI_') !== 0){
+        if (file_exists($file = APPPATH . 'core/' . $class . EXT)){
+             include $file;
+        }
+    }
+} 
 
 
 /* End of file config.php */
