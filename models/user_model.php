@@ -17,7 +17,7 @@ class User_model extends CI_Model{
 
     public function get_user($id){
         $query = $this->db->where('iduser',$id);
-        return $query->get('user')->result();
+        return $query->get('user')->row();
     }
 
     public function gravar_user($usuario){

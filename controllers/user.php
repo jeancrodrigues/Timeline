@@ -10,16 +10,16 @@ class User extends CI_controller{
     }
 
     public function list_users(){
-         $this->load->view('user_json',array(
-            'user' => $this->user_model->get_users()
+         $this->load->view('json',array(
+            'data' => $this->user_model->get_users()
         ));
     }
 
     public function user_by_id(){
         $id = $this->uri->segment(2);
         if(isset($id)){
-            $this->load->view('user_json' , array(
-                'user' => $this->user_model->get_user($id)
+            $this->load->view('json' , array(
+                'data' => $this->user_model->get_user($id)
             ));
         }
     }
