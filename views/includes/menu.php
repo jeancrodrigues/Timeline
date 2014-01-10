@@ -1,9 +1,7 @@
 <body>
 	<div>
 		<ul>
-			<li><?php echo anchor('crud/create','CREATE') ?></li>
-			<li><?php echo anchor('crud/retrieve','RETRIEVE') ?></li>
-			<li><?php echo anchor('crud/update','UPDATE') ?></li>
-			<li><?php echo anchor('crud/delete','DELETE') ?></li>
+			<li><?php echo anchor('cadastro/novo','NOVO') ?></li>
+			<li><?php echo anchor('cadastro/buscar','BUSCAR') ?></li>
 		</ul>
 	</div>

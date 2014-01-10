@@ -38,12 +38,11 @@
 |
 */
 
-$route['default_controller'] = 'crud';
+$route['default_controller'] = 'cadastro';
 $route['404_override'] = '';
 
 $route['user/(:num)'] = 'user/user_by_id';
 $route['user/(:any)'] = 'user/user_by_username';
-
 $route['users/(:any)'] = 'user/list_users';
 $route['users'] = 'user/list_users';
 
