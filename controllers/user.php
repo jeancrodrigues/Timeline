@@ -9,7 +9,10 @@ class User extends My_controller{
     public function index(){
         if($this->_httpmethod === 'post'){
             $post = $this->input->post(NULL,TRUE);
+            
+            //teste - retornando os parametros do post 
             $this->return_json_view(array('mensagem' => 'ok','user' => $post));
+
         }else{
             $this->return_json_view( array('mensagem' => 'Url inválida') );
         }
