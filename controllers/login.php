@@ -1,5 +1,5 @@
 <?php
-class Login extends CI_controller{
+class Login extends My_controller{
     public function __construct(){
         parent::__construct();
         $this->load->library('session');
@@ -7,18 +7,22 @@ class Login extends CI_controller{
     }
 
     public function index(){
-        #if(strtolower($this->input->server('REQUEST_METHOD')) === 'post'){
-        $params = $this->input->post(null,true);
-        if( count($params) === 2 and ( isset($params['username']) or isset($params['email'])) and isset($params['pass']) ){
-
-            $user = $this->user_model->autenticar_user($params['username'],$params['pass']);
-            $this->session->set_userdata($user);
-            $this->load->view('json', array( 'data' => $this->session->all_userdata() ));
+        if($this->_httpmethod === 'post'){
+            $params = $this->input->post(null,true);
             
+            if( count($params) === 2 and ( isset($params['username']) or isset($params['email'])) and isset($params['pass']) ){
+                $user = $this->user_model->autenticar_user($params['username'],$params['pass']);
+                $this->session->set_userdata($user);
+                $this->return_json_view($this->session->all_userdata());
+            }else{
+                $this->return_json_view( array(
+                    'mensagem' => 'Parametros inválidos'
+                ));
+            }
         }else{
-            $this->load->view('json', array( 'data' => array(
-                'mensagem' => 'Parametros inválidos'
-            )));
+            $this->return_json_view(array(
+                'mensagem'=>'Url inválida'
+            ));
         }
     }    
 }

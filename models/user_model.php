@@ -15,7 +15,6 @@ class User_model extends CI_Model{
         return $query->get('user')->result_array(); 
     }
 
-<<<<<<< HEAD
     public function autenticar_user($username,$pass){
         $query = $this->db->from('login');
         $query->join('user' , 'user.iduser = login.iduser');
@@ -29,22 +28,12 @@ class User_model extends CI_Model{
         return $query->get('user')->row();
     }
 
-=======
-    public function get_user($id) {
-		$query = $this -> db -> where('iduser', $id);
-		return $query -> get('user') -> row();
-	}
->>>>>>> 34e52e371173cb410b620dbac39bf8160d4b3262
     public function gravar_user($usuario){
         if($this->valida_user($usuario)){
             $query = $this->db->insert('user',$usuario);
         }
     }
 
-    private function valida_user($usuario){
-        return true;
-    }
-	
 	public function update_user($dados = NULL, $condicao = NULL) {
 		if ($dados != NULL && $condicao != NULL) {
 			$this -> db -> where('iduser', $condicao);
