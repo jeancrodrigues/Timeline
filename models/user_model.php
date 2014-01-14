@@ -15,6 +15,14 @@ class User_model extends CI_Model{
         return $query->get('user')->result_array(); 
     }
 
+    public function autenticar_user($username,$pass){
+        $query = $this->db->from('login');
+        $query->join('user' , 'user.iduser = login.iduser');
+        $query->where('nomeusuario' , $username);
+        $query->where('senha' , $pass);
+        return $query->get()->row();
+    }
+
     public function get_user($id){
         $query = $this->db->where('iduser',$id);
         return $query->get('user')->row();
