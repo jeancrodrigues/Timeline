@@ -39,13 +39,17 @@
 */
 
 $route['default_controller'] = 'cadastro';
+
 $route['404_override'] = '';
 
 $route['user'] = 'user';
 $route['user/(:num)'] = 'user/user_by_id';
-$route['user/(:any)'] = 'user/user_by_username';
+$route['user/(:any)'] = 'user/user_by_name';
 $route['users/(:any)'] = 'user/list_users';
 $route['users'] = 'user/list_users';
+$route['post/(:num)'] = 'post/post_by_id';
+$route['posts'] = 'post/list_posts';
+$route['posts/(:num)'] = 'post/posts_by_iduser';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

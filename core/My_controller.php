@@ -25,7 +25,7 @@ abstract class My_controller extends CI_controller{
         }
     }
 
-    protected _display_login_msg(){
+    protected function _display_login_msg(){
         $this->load->view('json', array(
             'data' => array(
                 'msg' => 'Usuário não está logado',

@@ -21,13 +21,14 @@ class User extends CI_controller{
             $this->return_json_view( array('mensagem' => 'Url inválida') );
         }
     }
-
+    
     public function user_by_id(){
         $id = $this->uri->segment(2);
         if(isset($id)){
             $this->return_json_view($this->user_model->get_user($id));
         }
     }
+<<<<<<< HEAD
 
     public function post_user(){
         $user = $this->input->post(null,true);
@@ -49,5 +50,22 @@ class User extends CI_controller{
             $this->return_json_view($this->user_model->get_user_by_username($name));
         }
     } 
+=======
+	
+	public function user_by_name(){
+		$name = $this->uri->segment(2);
+        if(isset($name)){
+            $this->load->view('json' , array(
+                'data' => $this->user_model->get_users_by_name($name)
+            ));
+        }
+	}
+	
+	public function update_user() {
+			$dados = elements('nome',$this->input->post());
+			$cond = $this->input->post('idusuario');
+			$this->user_model->do_update($dados,$cond);
+	}
+>>>>>>> 34e52e371173cb410b620dbac39bf8160d4b3262
 }
 ?>
