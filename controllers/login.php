@@ -9,11 +9,13 @@ class Login extends My_controller{
     public function index(){
         if($this->_httpmethod === 'post'){
             $params = $this->input->post(null,true);
+            //$params = $this->input->post();
             if( count($params) === 2 and (isset($params['username']) or isset($params['email'])) and isset($params['pass']) ){
                 $this->return_json_view($this->login_usuario($params['username'],$params['pass']));
             }else{
                 $this->return_json_view( array(
-                    'mensagem' => 'Parametros inválidos'
+                    'mensagem' => 'Parametros inválidos',
+                    'post' => $params
                 ));
             }
         }else{
@@ -27,10 +29,9 @@ class Login extends My_controller{
         $user = $this->user_model->autenticar_user($usuario,$senha);
         if($user){
             $this->session->set_userdata('login',$user);
-            // se o usuário for válido retorna o seu perfil 
-            $this->return_json_view($user);        
+            return $user;        
         }else{
-            $this->return_json_view($this->session->flashdata('mensagens_validacao')); 
+            return $this->session->flashdata('mensagens_validacao'); 
         }
     }   
 }
