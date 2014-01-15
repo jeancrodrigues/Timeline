@@ -1,25 +1,32 @@
 <?php 
 
-class Login_model extends CI_Model{
+class Login_model extends My_model{
     public function __construct(){
         parent::__construct();
-        $this->load->database();
-        $this->load->library('session');
     }
 
     public function autenticar_user($username,$pass){
-        $query = $this->db->from('login');
-        $query->join('user' , 'user.iduser = login.iduser');
+        $query = $this->db->from('user');
         $query->where('nomeusuario' , $username);
         $res = $query->get();
-        if($res->count_all_results() === 1 ){
-            if($res->row()["senha"] === $pass){
-                return $res->row();
+        if($res->num_rows() === 1 ){
+            $user = $res->row();
+            $id = $user->iduser;
+            if($this->valida_senha_usuario($id,$pass)){
+                return $user;
             }else{
-                $this->session->set_flashdata('mensagensvalidacao' , array('mensagem' => 'Senha inválida'));
+                $this->put_mensagem_validacao('Senha inválida');
             }
         }else{
-            $this->session->set_flashdata('mensagensvalidacao' , array('mensagem' => 'Usuário não existe'));
+            $this->put_mensagem_validacao('Usuário não existe');
         }
+        return false;
     }
+
+    private function valida_senha_usuario($id, $pass){
+        $query = $this->db->from('login');
+        $query->where(array( 'iduser' => $id , 'senha' => $pass) );
+        return $query->get()->num_rows() === 1;    
+    }
+}
 ?>
