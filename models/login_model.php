@@ -13,6 +13,7 @@ class Login_model extends My_model{
             $user = $res->row();
             $id = $user->iduser;
             if($this->valida_senha_usuario($id,$pass)){
+                $this->gerar_token($user);
                 return $user;
             }else{
                 $this->put_mensagem_validacao('Senha inválida');
@@ -27,6 +28,10 @@ class Login_model extends My_model{
         $query = $this->db->from('login');
         $query->where(array( 'iduser' => $id , 'senha' => $pass) );
         return $query->get()->num_rows() === 1;    
+    }
+
+    private function gerar_token($user){
+        $user->token = "asudhausdhuahsduhasduhausdh";
     }
 }
 ?>
