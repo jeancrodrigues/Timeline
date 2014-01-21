@@ -1,12 +1,10 @@
 <?php
 abstract class My_controller extends CI_controller{
 
-    protected $_usuariologado;
     protected $_httpmethod;
 
     public function __construct(){
         parent::__construct();
-        $this->load->library('session');
         $this->load->helper('url');
         $this->_options();
         $this->_httpmethod = strtolower($this->input->server('REQUEST_METHOD'));

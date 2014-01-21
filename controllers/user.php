@@ -11,6 +11,8 @@ class User extends My_controller{
             $post = $this->input->post(NULL,TRUE);
             
             //teste - retornando os parametros do post 
+            $post["id"] = 87234678236487;
+            
             $this->return_json_view(array('mensagem' => 'ok','user' => $post));
 
         }else{
