@@ -16,7 +16,7 @@ class User extends My_controller{
             $this->return_json_view(array('mensagem' => 'ok','user' => $post));
 
         }else{
-            $this->return_json_view( array('mensagem' => 'Url inválida') );
+            $this->return_json_view( array('mensagem' => 'Url Invalida!') );
         }
     }
     
