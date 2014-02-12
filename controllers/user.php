@@ -26,6 +26,15 @@ class User extends My_controller{
             $this->return_json_view($this->user_model->get_user($id));
         }
     }
+    
+    public function insert_user(){
+        if($this->_httpmethod === 'post'){
+        $user = $this->input->post();
+        $this->user_model->grava_user($user);
+        }else{
+             $this->return_json_view( array('mensagem' => 'Não tem post!') );
+        }
+    }
 
     public function list_users(){
         $name = $this->uri->segment(2);

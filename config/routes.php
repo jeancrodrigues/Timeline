@@ -6,6 +6,7 @@ $route['404_override'] = '';
 $route['user'] = 'user';
 $route['user/(:num)'] = 'user/user_by_id';
 $route['user/(:any)'] = 'user/user_by_name';
+$route['user/teste'] = 'user/insert_user';
 
 $route['users/(:any)'] = 'user/list_users';
 $route['users'] = 'user/list_users';
