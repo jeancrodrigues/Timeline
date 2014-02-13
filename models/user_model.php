@@ -22,17 +22,13 @@ class User_model extends CI_Model{
 
     public function gravar_user($usuario){
         if($this->valida_user($usuario)){
-            $query = $this->db->insert('user',$usuario);
+            return $this->db->insert('user', $usuario);
         }
+        return false;
     }
 
-	public function update_user($dados = NULL, $condicao = NULL) {
-		if ($dados != NULL && $condicao != NULL) {
-			$this -> db -> where('iduser', $condicao);
-			$this -> db -> update('user', $dados);
-			$this -> session -> set_flashdata('edicaook', 'Cadastro Alterado com Sucesso!');
-			redirect(current_url());
-		}
-	}
+    private function valida_user(){
+        return true;
+    }
 }
 ?>

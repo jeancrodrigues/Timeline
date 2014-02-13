@@ -1,6 +1,5 @@
 <?php
 class User extends My_controller{
-
     public function __construct(){
         parent::__construct();
         $this->load->model('user_model');
@@ -8,13 +7,7 @@ class User extends My_controller{
     
     public function index(){
         if($this->_httpmethod === 'post'){
-            $post = $this->input->post(NULL,TRUE);
-            
-            //teste - retornando os parametros do post 
-            $post["id"] = 87234678236487;
-            
-            $this->return_json_view(array('mensagem' => 'ok','user' => $post));
-
+            $this->insert_user();
         }else{
             $this->return_json_view( array('mensagem' => 'Url Invalida!') );
         }
@@ -28,11 +21,11 @@ class User extends My_controller{
     }
     
     public function insert_user(){
-        if($this->_httpmethod === 'post'){
-        $user = $this->input->post();
-        $this->user_model->grava_user($user);
+        $user = $this->input->post(null,true);
+        if($this->user_model->gravar_user($user)){
+            $this->return_json_view( array('mensagem' => 'Cadastro realizado com sucesso.') );
         }else{
-             $this->return_json_view( array('mensagem' => 'Não tem post!') );
+            $this->return_json_view( array('mensagem' => 'Erro no cadastro') );
         }
     }
 
@@ -60,9 +53,9 @@ class User extends My_controller{
 	}
 	
 	public function update_user() {
-			$dados = elements('nome',$this->input->post());
-			$cond = $this->input->post('idusuario');
-			$this->user_model->do_update($dados,$cond);
+        $dados = elements('nome',$this->input->post());
+        $cond = $this->input->post('idusuario');
+        $this->user_model->do_update($dados,$cond);
 	}
 }
 ?>

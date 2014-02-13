@@ -2,7 +2,6 @@
 class Login extends My_controller{
     public function __construct(){
         parent::__construct();
-        $this->load->library('session');
         $this->load->model('login_model');
     }
 
