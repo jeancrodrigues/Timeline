@@ -3,6 +3,7 @@ class User extends My_controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('user_model');
+        $this -> load -> helper('array');
     }   
     
     public function index(){
@@ -22,6 +23,7 @@ class User extends My_controller{
     
     public function insert_user(){
         $user = $this->input->post(null,true);
+        
         if($this->user_model->gravar_user($user)){
             $this->return_json_view( array('mensagem' => 'Cadastro realizado com sucesso.') );
         }else{
