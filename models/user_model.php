@@ -1,6 +1,6 @@
 <?php
 
-class User_model extends CI_Model {
+class User_model extends My_model {
 
     public function __construct() {
         parent::__construct();
@@ -36,17 +36,25 @@ class User_model extends CI_Model {
 
             if ($this->db->trans_status() === TRUE) {
                 return true;
-            } else {
-                return false;
             }
         }
         return false;
     }
 
     private function valida_user($usuario) {
-        return true;
-    }
+        $this->form_validation->set_rules('nome', 'nome', 'trim|required|max_lenght[30]|ucwords');
+        $this->form_validation->set_rules('email', 'email', 'trim|required|max_lenght[50]|strtolower|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('nomeusuario', 'nome usuario', 'trim|required|max_lenght[25]|strtolower|is_unique[user.nomeusuario]');
+        $this->form_validation->set_rules('sexo', 'sexo', 'trim|required|strtolupper|exact_length[1]|alpha');
+        $this->form_validation->set_rules('senha', 'senha', 'trim|required|min_length[4]');
 
+        if ($this->form_validation->run() == TRUE) {
+            return true;
+        } else {
+            $this->put_mensagem_validacao(explode(',', validation_errors(',', ' ')));
+            return false;
+        }
+    }
 }
 
 ?>

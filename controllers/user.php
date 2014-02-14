@@ -4,6 +4,8 @@ class User extends My_controller{
         parent::__construct();
         $this->load->model('user_model');
         $this -> load -> helper('array');
+        $this -> load -> library('form_validation');
+        
     }   
     
     public function index(){
@@ -27,7 +29,12 @@ class User extends My_controller{
         if($this->user_model->gravar_user($user)){
             $this->return_json_view( array('mensagem' => 'Cadastro realizado com sucesso.') );
         }else{
-            $this->return_json_view( array('mensagem' => 'Erro no cadastro') );
+            $this->return_json_view( 
+                array(
+                    'mensagem' => 'Erro no cadastro' , 
+                    'erros' => $this->user_model->get_mensagem_validacao()
+                )
+            );
         }
     }
 
