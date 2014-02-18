@@ -12,9 +12,9 @@ class User_model extends My_model {
         return $query->result_array();
     }
 
-    public function get_users_by_name($name) {
-        $query = $this->db->like('nome', $name, 'after');
-        return $query->get('user')->result_array();
+    public function get_user_by_name($name) {
+        $query = $this->db->where('nome', $name);
+        return $query->get('user')->row();
     }
 
     public function get_user($id) {

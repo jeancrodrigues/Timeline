@@ -57,7 +57,7 @@ class User extends My_controller{
 	public function user_by_name(){
 		$name = $this->uri->segment(2);
         if(isset($name)){
-            $this->return_json_view($this->user_model->get_users_by_name($name));
+            $this->return_json_view($this->user_model->get_user_by_name($name));
         }
 	}
 	
