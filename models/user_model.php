@@ -13,7 +13,7 @@ class User_model extends My_model {
     }
 
     public function get_user_by_name($name) {
-        $query = $this->db->like('nome', $name);
+        $query = $this->db->like('nome', $name,'after');
         return $query->get('user')->result_array();
     }
 
