@@ -8,7 +8,6 @@ class Login extends My_controller{
     public function index(){
         if($this->_httpmethod === 'post'){
             $params = $this->input->post(null,true);
-            
             if( count($params) === 2 and (isset($params['username']) or isset($params['email'])) and isset($params['pass']) ){
                 $this->return_json_view( $this->login_usuario($params['username'],$params['pass']) );
             }else{

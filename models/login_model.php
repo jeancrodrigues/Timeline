@@ -12,8 +12,9 @@ class Login_model extends My_model{
         if($res->num_rows() === 1 ){
             $user = $res->row();
             $id = $user->iduser;
-            if($this->valida_senha_usuario($id,$pass)){
-                $this->gerar_token($user);
+            $token = $this->valida_senha_usuario($id,$pass);
+            if($token){
+                $user->token = $token;
                 return $user;
             }else{
                 $this->put_mensagem_validacao('Senha inválida');
@@ -27,11 +28,18 @@ class Login_model extends My_model{
     private function valida_senha_usuario($id, $pass){
         $query = $this->db->from('login');
         $query->where(array( 'iduser' => $id , 'senha' => $pass) );
-        return $query->get()->num_rows() === 1;    
+        if($query->get()->num_rows() === 1){
+            return md5( $id . $pass . date("dmY") );
+        }else{
+            return false;
+        }    
     }
 
-    private function gerar_token($user){
-        $user->token = "asudhausdhuahsduhasduhausdh";
+    public function valida_token_usuario($id, $token){
+        $query = $this->db->from('login');
+        $query->where( array( 'iduser' => $id ) );
+        $res = $query->get()->row();         
+        return $res and md5( $id . $res->senha . date("dmY") ) === $token;
     }
 }
 ?>

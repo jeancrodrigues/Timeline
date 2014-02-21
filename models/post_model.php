@@ -9,17 +9,17 @@ class Post_model extends My_model {
 	}
 
 	public function get_posts($seq = 1) {
-        $query = $this->db->select('*');
+        $query = $this->db->select('idpost,titulo,texto,post.iduser,nomeusuario,post.datacadastro');
         $query->order_by('post.datacadastro','desc');
         $query->join('user','post.iduser = user.iduser');
         $query->order_by('idpost','desc');
         return $query->get('post', 
-            0 + ( $this->__numeroposts * $seq -1 ) , // inicio
+            ( $this->__numeroposts * $seq -1 ) , // inicio
             $this->__numeroposts * $seq)->result_array();
 	}
 
     public function get_post($id) {
-        $query = $this->db->select('*');
+        $query = $this->db->select('idpost,titulo,texto,post.iduser,nomeusuario,post.datacadastro');
         $query->where('idpost', $id);
         $query->join('user','post.iduser = user.iduser');
         $query->order_by('post.datacadastro','desc');
@@ -27,19 +27,23 @@ class Post_model extends My_model {
 	}
 	
 	public function get_posts_iduser($id, $seq = 1) {
-        $query = $this->db->select('*');
-            #'idpost','titulo','texto','iduser','nomeusuario','post.datacadastro');
-        $query->where('iduser', $id);
+        $query = $this->db->select('idpost,titulo,texto,post.iduser,nomeusuario,post.datacadastro');
+        $query->where('user.iduser', $id);
+        $query->join('user','post.iduser = user.iduser');
         $query->order_by('post.datacadastro','desc');
         $query->order_by('idpost','desc');
         return $query->get(
             'post', 
-            0 + ( $this->__numeroposts * $seq -1 ) ,
+            ( $this->__numeroposts * $seq -1 ) ,
             $this->__numeroposts * $seq
         )->result_array();
 	}
 
     public function get_posts_username($username){ // certeza que retorna os posts??
         return array();
+    }
+
+    public function gravar_post($params){
+        return array( 'mensagem' => 'ok' , 'post' => $params);
     }
 }

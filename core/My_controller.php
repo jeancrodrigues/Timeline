@@ -20,5 +20,12 @@ abstract class My_controller extends CI_controller{
         $this->output->set_header('Access-Control-Allow-Headers: content-type' );
         $this->output->set_content_type('application/json');
     }
+
+    protected function autenticar_post(){
+        $id = $this->input->post('iduser',true);
+        $token = $this->input->post('token',true);
+        $this->load->model('login_model');
+        return $this->login_model->valida_token_usuario($id,$token);        
+    }
 }
 ?>

@@ -9,7 +9,24 @@ class Post extends My_controller {
 
     public function index(){
         if($this->_httpmethod === 'post'){
+            $params = $this->input->post(null,true);
 
+            if(count($params) === 4 and 
+                isset($params["titulo"]) and 
+                isset($params["texto"]) and
+                isset($params["token"]) and isset($params["iduser"])){
+                if($this->autenticar_post()){
+                    $this->return_json_view( $this->post_model->gravar_post($params) ); 
+                }else{
+                    $this->return_json_view(
+                        array('mensagem'=>'Usuário não autorizado')
+                    );
+                }
+            }else{
+                return $this->return_json_view(
+                    array('mensagem' => 'Parâmetros inválidos.')
+                );                    
+            }
         }else{
             $this->return_json_view(array(
                 'mensagem' => 'Url inválida.'
