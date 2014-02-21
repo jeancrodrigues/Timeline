@@ -13,8 +13,8 @@ class User_model extends My_model {
     }
 
     public function get_user_by_name($name) {
-        $query = $this->db->where('nome', $name);
-        return $query->get('user')->row();
+        $query = $this->db->like('nome', $name,'after');
+        return $query->get('user')->result_array();
     }
 
     public function get_user($id) {
