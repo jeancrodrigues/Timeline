@@ -2,53 +2,65 @@
 
 class Post extends My_controller {
 
-	public function __construct(){
+    public function __construct() {
         parent::__construct();
         $this->load->model('post_model');
+        $this->load->library('form_validation');
     }
 
-    public function index(){
-        if($this->_httpmethod === 'post'){
-            $params = $this->input->post(null,true);
+    public function index() {
+        if ($this->_httpmethod === 'post') {
+            $params = $this->input->post(null, true);
 
-            if(count($params) === 4 and 
-                isset($params["titulo"]) and 
-                isset($params["texto"]) and
-                isset($params["token"]) and isset($params["iduser"])){
-                if($this->autenticar_post()){
-                    $this->return_json_view( $this->post_model->gravar_post($params) ); 
-                }else{
+            if (count($params) === 4 and
+                    isset($params["titulo"]) and
+                    isset($params["texto"]) and
+                    isset($params["token"]) and isset($params["iduser"])) {
+                if ($this->autenticar_post()) {
+                    if ($this->post_model->gravar_post($params)) {
+                        $this->return_json_view(
+                                array(
+                                    'mensagem' => 'Postado com Sucesso!', 'post' => $params));
+                    } else {
+                        $this->return_json_view(
+                                array(
+                                    'mensagem' => 'Erro na Postagem',
+                                    'erros' => $this->post_model->get_mensagem_validacao()
+                                )
+                        );
+                    }
+                } else {
                     $this->return_json_view(
-                        array('mensagem'=>'Usuário não autorizado')
+                            array('mensagem' => 'Usuário não autorizado')
                     );
                 }
-            }else{
+            } else {
                 return $this->return_json_view(
-                    array('mensagem' => 'Parâmetros inválidos.')
-                );                    
+                                array('mensagem' => 'Parâmetros inválidos.')
+                );
             }
-        }else{
+        } else {
             $this->return_json_view(array(
                 'mensagem' => 'Url inválida.'
             ));
         }
-	}
+    }
 
-	public function list_posts() {
-		$this->return_json_view($this->post_model->get_posts());
-	}
+    public function list_posts() {
+        $this->return_json_view($this->post_model->get_posts());
+    }
 
-	public function post_by_id() {
-		$id = $this->uri->segment(2);
+    public function post_by_id() {
+        $id = $this->uri->segment(2);
         if (isset($id)) {
-			$this->return_json_view($this->post_model->get_post($id));
-		}
-	}
-	
-	public function posts_by_iduser() {
-		$id = $this->uri->segment(2);
+            $this->return_json_view($this->post_model->get_post($id));
+        }
+    }
+
+    public function posts_by_iduser() {
+        $id = $this->uri->segment(2);
         if (isset($id)) {
-			$this->return_json_view($this->post_model->get_posts_iduser($id));
-		}
-	}
+            $this->return_json_view($this->post_model->get_posts_iduser($id));
+        }
+    }
 }
