@@ -20,11 +20,11 @@ class Post extends My_controller {
                     if ($this->post_model->gravar_post($params)) {
                         $this->return_json_view(
                                 array(
-                                    'mensagem' => 'Postado com Sucesso!', 'post' => $params));
+                                    'mensagem' => 'ok', 'post' => $params));
                     } else {
                         $this->return_json_view(
                                 array(
-                                    'mensagem' => 'Erro na Postagem',
+                                    'mensagem' => 'error',
                                     'erros' => $this->post_model->get_mensagem_validacao()
                                 )
                         );

@@ -27,11 +27,11 @@ class User extends My_controller{
         $user = $this->input->post(null,true);
         
         if($this->user_model->gravar_user($user)){
-            $this->return_json_view( array('mensagem' => 'Cadastro realizado com sucesso.') );
+            $this->return_json_view( array('mensagem' => 'ok') );
         }else{
             $this->return_json_view( 
                 array(
-                    'mensagem' => 'Erro no cadastro' , 
+                    'mensagem' => 'error' , 
                     'erros' => $this->user_model->get_mensagem_validacao()
                 )
             );
