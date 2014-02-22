@@ -14,8 +14,8 @@ class Post_model extends My_model {
         $query->join('user','post.iduser = user.iduser');
         $query->order_by('idpost','desc');
         return $query->get('post', 
-            ( $this->__numeroposts * $seq -1 ) , // inicio
-            $this->__numeroposts * $seq)->result_array();
+             $this->__numeroposts , 
+            $this->__numeroposts * ( $seq -1))->result_array();
 	}
 
     public function get_post($id) {
@@ -32,11 +32,9 @@ class Post_model extends My_model {
         $query->join('user','post.iduser = user.iduser');
         $query->order_by('post.datacadastro','desc');
         $query->order_by('idpost','desc');
-        return $query->get(
-            'post', 
-            ( $this->__numeroposts * $seq -1 ) ,
-            $this->__numeroposts * $seq
-        )->result_array();
+        return $query->get('post',
+            $this->__numeroposts,
+            $this->__numeroposts * ( $seq -1))->result_array();
 	}
 
     public function get_posts_username($username){ // certeza que retorna os posts??
