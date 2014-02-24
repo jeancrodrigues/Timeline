@@ -5,7 +5,6 @@ class User extends My_controller{
         $this->load->model('user_model');
         $this -> load -> helper('array');
         $this -> load -> library('form_validation');
-        
     }   
     
     public function index(){
@@ -25,7 +24,6 @@ class User extends My_controller{
     
     public function insert_user(){
         $user = $this->input->post(null,true);
-        
         if($this->user_model->gravar_user($user)){
             $this->return_json_view( array('mensagem' => 'ok') );
         }else{
@@ -43,7 +41,7 @@ class User extends My_controller{
         if(!$name){
             $this->return_json_view($this->user_model->get_users());
         }else{
-            $this->return_json_view($this->user_model->get_users_by_name($name));
+            $this->return_json_view($this->user_model->get_users($name));
         }
     }
 

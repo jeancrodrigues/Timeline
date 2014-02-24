@@ -7,13 +7,16 @@ class User_model extends My_model {
         $this->load->database();
     }
 
-    public function get_users() {
-        $query = $this->db->get('user');
-        return $query->result_array();
+    public function get_users($str="") {
+        $query = $this->db;
+        if(strlen($str) > 0){
+            $query->like('nome',$str,'after');
+        }
+        return $query->get('user')->result_array();
     }
 
     public function get_user_by_name($name) {
-        $query = $this->db->like('nome', $name,'after');
+        $query = $this->db->where('nomeusuario' , $name);
         return $query->get('user')->result_array();
     }
 
@@ -47,7 +50,6 @@ class User_model extends My_model {
         $this->form_validation->set_rules('nomeusuario', 'nome usuario', 'trim|required|max_lenght[25]|strtolower|is_unique[user.nomeusuario]');
         $this->form_validation->set_rules('sexo', 'sexo', 'trim|required|strtolupper|exact_length[1]|alpha');
         $this->form_validation->set_rules('senha', 'senha', 'trim|required|min_length[4]');
-
         if ($this->form_validation->run() == TRUE) {
             return true;
         } else {
