@@ -17,12 +17,22 @@ class User_model extends My_model {
 
     public function get_user_by_name($name) {
         $query = $this->db->where('nomeusuario' , $name);
-        return $query->get('user')->result_array();
+        $query = $query->get('user');
+        if($query->num_rows === 1){
+            return $query->row();
+        }else{
+            return new stdClass();
+        }
     }
 
     public function get_user($id) {
         $query = $this->db->where('iduser', $id);
-        return $query->get('user')->row();
+        $query = $query->get('user');
+        if($query->num_rows === 1){
+            return $query->row();
+        }else{
+            return new stdClass();
+        }    
     }
 
     public function gravar_user($usuario) {
